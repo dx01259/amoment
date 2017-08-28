@@ -26,7 +26,7 @@ public final class ProtobufHandler {
     /**
      * <code>string command = 2;</code>
      */
-    java.lang.String getCommand();
+    String getCommand();
     /**
      * <code>string command = 2;</code>
      */
@@ -36,7 +36,7 @@ public final class ProtobufHandler {
     /**
      * <code>string data = 3;</code>
      */
-    java.lang.String getData();
+    String getData();
     /**
      * <code>string data = 3;</code>
      */
@@ -60,7 +60,7 @@ public final class ProtobufHandler {
       data_ = "";
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
@@ -91,13 +91,13 @@ public final class ProtobufHandler {
               break;
             }
             case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               command_ = s;
               break;
             }
             case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               data_ = s;
               break;
@@ -115,14 +115,14 @@ public final class ProtobufHandler {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.amoment.protocol.ProtobufHandler.internal_static_ProtobufMsg_descriptor;
+      return ProtobufHandler.internal_static_ProtobufMsg_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.amoment.protocol.ProtobufHandler.internal_static_ProtobufMsg_fieldAccessorTable
+      return ProtobufHandler.internal_static_ProtobufMsg_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.amoment.protocol.ProtobufHandler.ProtobufMsg.class, com.amoment.protocol.ProtobufHandler.ProtobufMsg.Builder.class);
+              ProtobufMsg.class, Builder.class);
     }
 
     public static final int ID_FIELD_NUMBER = 1;
@@ -135,18 +135,18 @@ public final class ProtobufHandler {
     }
 
     public static final int COMMAND_FIELD_NUMBER = 2;
-    private volatile java.lang.Object command_;
+    private volatile Object command_;
     /**
      * <code>string command = 2;</code>
      */
-    public java.lang.String getCommand() {
-      java.lang.Object ref = command_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getCommand() {
+      Object ref = command_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         command_ = s;
         return s;
       }
@@ -156,11 +156,11 @@ public final class ProtobufHandler {
      */
     public com.google.protobuf.ByteString
         getCommandBytes() {
-      java.lang.Object ref = command_;
-      if (ref instanceof java.lang.String) {
+      Object ref = command_;
+      if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         command_ = b;
         return b;
       } else {
@@ -169,18 +169,18 @@ public final class ProtobufHandler {
     }
 
     public static final int DATA_FIELD_NUMBER = 3;
-    private volatile java.lang.Object data_;
+    private volatile Object data_;
     /**
      * <code>string data = 3;</code>
      */
-    public java.lang.String getData() {
-      java.lang.Object ref = data_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getData() {
+      Object ref = data_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         data_ = s;
         return s;
       }
@@ -190,11 +190,11 @@ public final class ProtobufHandler {
      */
     public com.google.protobuf.ByteString
         getDataBytes() {
-      java.lang.Object ref = data_;
-      if (ref instanceof java.lang.String) {
+      Object ref = data_;
+      if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         data_ = b;
         return b;
       } else {
@@ -245,15 +245,15 @@ public final class ProtobufHandler {
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.amoment.protocol.ProtobufHandler.ProtobufMsg)) {
+      if (!(obj instanceof ProtobufMsg)) {
         return super.equals(obj);
       }
-      com.amoment.protocol.ProtobufHandler.ProtobufMsg other = (com.amoment.protocol.ProtobufHandler.ProtobufMsg) obj;
+      ProtobufMsg other = (ProtobufMsg) obj;
 
       boolean result = true;
       result = result && (getId()
@@ -265,7 +265,7 @@ public final class ProtobufHandler {
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -283,69 +283,69 @@ public final class ProtobufHandler {
       return hash;
     }
 
-    public static com.amoment.protocol.ProtobufHandler.ProtobufMsg parseFrom(
+    public static ProtobufMsg parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.amoment.protocol.ProtobufHandler.ProtobufMsg parseFrom(
+    public static ProtobufMsg parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.amoment.protocol.ProtobufHandler.ProtobufMsg parseFrom(
+    public static ProtobufMsg parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.amoment.protocol.ProtobufHandler.ProtobufMsg parseFrom(
+    public static ProtobufMsg parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.amoment.protocol.ProtobufHandler.ProtobufMsg parseFrom(byte[] data)
+    public static ProtobufMsg parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.amoment.protocol.ProtobufHandler.ProtobufMsg parseFrom(
+    public static ProtobufMsg parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.amoment.protocol.ProtobufHandler.ProtobufMsg parseFrom(java.io.InputStream input)
+    public static ProtobufMsg parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.amoment.protocol.ProtobufHandler.ProtobufMsg parseFrom(
+    public static ProtobufMsg parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.amoment.protocol.ProtobufHandler.ProtobufMsg parseDelimitedFrom(java.io.InputStream input)
+    public static ProtobufMsg parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.amoment.protocol.ProtobufHandler.ProtobufMsg parseDelimitedFrom(
+    public static ProtobufMsg parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.amoment.protocol.ProtobufHandler.ProtobufMsg parseFrom(
+    public static ProtobufMsg parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.amoment.protocol.ProtobufHandler.ProtobufMsg parseFrom(
+    public static ProtobufMsg parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -357,7 +357,7 @@ public final class ProtobufHandler {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.amoment.protocol.ProtobufHandler.ProtobufMsg prototype) {
+    public static Builder newBuilder(ProtobufMsg prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -365,9 +365,9 @@ public final class ProtobufHandler {
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -377,17 +377,17 @@ public final class ProtobufHandler {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:ProtobufMsg)
-        com.amoment.protocol.ProtobufHandler.ProtobufMsgOrBuilder {
+        ProtobufMsgOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.amoment.protocol.ProtobufHandler.internal_static_ProtobufMsg_descriptor;
+        return ProtobufHandler.internal_static_ProtobufMsg_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.amoment.protocol.ProtobufHandler.internal_static_ProtobufMsg_fieldAccessorTable
+        return ProtobufHandler.internal_static_ProtobufMsg_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.amoment.protocol.ProtobufHandler.ProtobufMsg.class, com.amoment.protocol.ProtobufHandler.ProtobufMsg.Builder.class);
+                ProtobufMsg.class, Builder.class);
       }
 
       // Construct using com.amoment.protocol.ProtobufHandler.ProtobufMsg.newBuilder()
@@ -396,7 +396,7 @@ public final class ProtobufHandler {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -418,23 +418,23 @@ public final class ProtobufHandler {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.amoment.protocol.ProtobufHandler.internal_static_ProtobufMsg_descriptor;
+        return ProtobufHandler.internal_static_ProtobufMsg_descriptor;
       }
 
-      public com.amoment.protocol.ProtobufHandler.ProtobufMsg getDefaultInstanceForType() {
-        return com.amoment.protocol.ProtobufHandler.ProtobufMsg.getDefaultInstance();
+      public ProtobufMsg getDefaultInstanceForType() {
+        return ProtobufMsg.getDefaultInstance();
       }
 
-      public com.amoment.protocol.ProtobufHandler.ProtobufMsg build() {
-        com.amoment.protocol.ProtobufHandler.ProtobufMsg result = buildPartial();
+      public ProtobufMsg build() {
+        ProtobufMsg result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public com.amoment.protocol.ProtobufHandler.ProtobufMsg buildPartial() {
-        com.amoment.protocol.ProtobufHandler.ProtobufMsg result = new com.amoment.protocol.ProtobufHandler.ProtobufMsg(this);
+      public ProtobufMsg buildPartial() {
+        ProtobufMsg result = new ProtobufMsg(this);
         result.id_ = id_;
         result.command_ = command_;
         result.data_ = data_;
@@ -469,16 +469,16 @@ public final class ProtobufHandler {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.amoment.protocol.ProtobufHandler.ProtobufMsg) {
-          return mergeFrom((com.amoment.protocol.ProtobufHandler.ProtobufMsg)other);
+        if (other instanceof ProtobufMsg) {
+          return mergeFrom((ProtobufMsg)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.amoment.protocol.ProtobufHandler.ProtobufMsg other) {
-        if (other == com.amoment.protocol.ProtobufHandler.ProtobufMsg.getDefaultInstance()) return this;
+      public Builder mergeFrom(ProtobufMsg other) {
+        if (other == ProtobufMsg.getDefaultInstance()) return this;
         if (other.getId() != 0) {
           setId(other.getId());
         }
@@ -502,11 +502,11 @@ public final class ProtobufHandler {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.amoment.protocol.ProtobufHandler.ProtobufMsg parsedMessage = null;
+        ProtobufMsg parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.amoment.protocol.ProtobufHandler.ProtobufMsg) e.getUnfinishedMessage();
+          parsedMessage = (ProtobufMsg) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -542,20 +542,20 @@ public final class ProtobufHandler {
         return this;
       }
 
-      private java.lang.Object command_ = "";
+      private Object command_ = "";
       /**
        * <code>string command = 2;</code>
        */
-      public java.lang.String getCommand() {
-        java.lang.Object ref = command_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getCommand() {
+        Object ref = command_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+          String s = bs.toStringUtf8();
           command_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
@@ -563,11 +563,11 @@ public final class ProtobufHandler {
        */
       public com.google.protobuf.ByteString
           getCommandBytes() {
-        java.lang.Object ref = command_;
+        Object ref = command_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+                  (String) ref);
           command_ = b;
           return b;
         } else {
@@ -578,7 +578,7 @@ public final class ProtobufHandler {
        * <code>string command = 2;</code>
        */
       public Builder setCommand(
-          java.lang.String value) {
+          String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -611,20 +611,20 @@ public final class ProtobufHandler {
         return this;
       }
 
-      private java.lang.Object data_ = "";
+      private Object data_ = "";
       /**
        * <code>string data = 3;</code>
        */
-      public java.lang.String getData() {
-        java.lang.Object ref = data_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getData() {
+        Object ref = data_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+          String s = bs.toStringUtf8();
           data_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
@@ -632,11 +632,11 @@ public final class ProtobufHandler {
        */
       public com.google.protobuf.ByteString
           getDataBytes() {
-        java.lang.Object ref = data_;
+        Object ref = data_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+                  (String) ref);
           data_ = b;
           return b;
         } else {
@@ -647,7 +647,7 @@ public final class ProtobufHandler {
        * <code>string data = 3;</code>
        */
       public Builder setData(
-          java.lang.String value) {
+          String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -694,12 +694,12 @@ public final class ProtobufHandler {
     }
 
     // @@protoc_insertion_point(class_scope:ProtobufMsg)
-    private static final com.amoment.protocol.ProtobufHandler.ProtobufMsg DEFAULT_INSTANCE;
+    private static final ProtobufMsg DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.amoment.protocol.ProtobufHandler.ProtobufMsg();
+      DEFAULT_INSTANCE = new ProtobufMsg();
     }
 
-    public static com.amoment.protocol.ProtobufHandler.ProtobufMsg getDefaultInstance() {
+    public static ProtobufMsg getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -717,12 +717,12 @@ public final class ProtobufHandler {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<ProtobufMsg> getParserForType() {
       return PARSER;
     }
 
-    public com.amoment.protocol.ProtobufHandler.ProtobufMsg getDefaultInstanceForType() {
+    public ProtobufMsg getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -741,7 +741,7 @@ public final class ProtobufHandler {
   private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
-    java.lang.String[] descriptorData = {
+    String[] descriptorData = {
       "\n\016protobuf.proto\"8\n\013ProtobufMsg\022\n\n\002id\030\001 " +
       "\001(\005\022\017\n\007command\030\002 \001(\t\022\014\n\004data\030\003 \001(\tB\'\n\024co" +
       "m.amoment.protocolB\017ProtobufHandlerb\006pro" +
@@ -764,7 +764,7 @@ public final class ProtobufHandler {
     internal_static_ProtobufMsg_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ProtobufMsg_descriptor,
-        new java.lang.String[] { "Id", "Command", "Data", });
+        new String[] { "Id", "Command", "Data", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

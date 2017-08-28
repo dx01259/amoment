@@ -1,4 +1,4 @@
-package com.amoment.protocol;
+package com.amoment.protocol.core;
 
 import com.amoment.util.ResourceManager;
 import com.amoment.util.UtilXml;
