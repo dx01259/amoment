@@ -1,13 +1,11 @@
-package com.derivative.base.util;
+package com.amoment.util;
 
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Created by xudeng on 2017/6/7.

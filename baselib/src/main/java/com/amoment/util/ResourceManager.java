@@ -1,35 +1,27 @@
-package com.derivative.base.core;
+package com.amoment.util;
 
 import java.io.File;
+import java.io.InputStream;
 
 /**
  * Created by xudeng on 2017/6/8.
  */
 public class ResourceManager {
 
-    private static String m_SysDataroot = null;
+    private static String userDir = null;
 
-    static {
-        m_SysDataroot = System.getProperty("app.dataroot");
-        if (null == m_SysDataroot)
-        {
-            m_SysDataroot = System.getProperty("user.dir") + File.separator + "dataroot"
-                    + File.separator;
+    public static String getUserDirectory()
+    {
+        if (BaseFunc.isNullOrEmpty(userDir)) {
+            userDir = System.getProperty("user.dir") + File.separator;
+        } else if (!userDir.endsWith(File.separator)) {
+            userDir += File.separator;
         }
-        else {
-            if (!m_SysDataroot.endsWith(File.separator)){
-                m_SysDataroot = m_SysDataroot + File.separator;
-            }
-        }
+
+        return userDir;
     }
 
-    public static String GetSysDataroot()
-    {
-        return m_SysDataroot;
-    }
-
-    public static String GetModuleDataRoot(String module)
-    {
-        return m_SysDataroot + module + File.separator;
+    public InputStream getClassDirectoryFile(Class pathClass, String fileDirectory) {
+        return pathClass.getResourceAsStream(fileDirectory);
     }
 }
