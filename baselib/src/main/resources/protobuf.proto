@@ -1,9 +1,9 @@
 syntax="proto3";
 
-option java_package = "com.derivative.base.protocol";
-option java_outer_classname="ProtoBuffMsgProto";
+option java_package = "com.amoment.protocol";
+option java_outer_classname="ProtobufHandler";
 
-message ProtoBuffMsg{
+message ProtobufMsg{
     int32 id = 1;
     string command = 2;
     string data = 3;
