@@ -1,26 +1,29 @@
-package com.derivative.Logging.Logger;
+package com.amoment.logging.Logger;
 
-import com.derivative.base.core.BaseFunc;
-import com.derivative.base.core.ResourceManager;
+import com.amoment.util.BaseFunc;
+import com.amoment.util.ResourceManager;
 import org.apache.log4j.*;
 import org.apache.log4j.net.SocketAppender;
+import org.dom4j.Element;
+import org.dom4j.Node;
 
 import java.io.File;
 import java.util.Hashtable;
 import java.util.List;
-
-import org.dom4j.Element;
-import org.dom4j.Node;
 
 /**
  * Created by xudeng on 2017/6/10.
  */
 public class BaseLogger {
 
-    enum LOGGER_TYPE{
-        LOGGER_CONSOLE,
-        LOGGER_SOCKET,
-        LOGGER_FILE,
+    enum LoggerType {
+        CONSOLE,
+        SOCKET,
+        FILE;
+    }
+
+    enum LoggerLevel {
+        FATAL,ERROR,WARN,INFO,DEBUG;
     }
 
     class FileLogsObject{
@@ -35,13 +38,13 @@ public class BaseLogger {
     }
 
     //记录日志类型
-    LOGGER_TYPE m_loggerType;
+    LoggerType m_loggerType;
 
     protected Logger logger = Logger.getLogger(this.getClass());
 
-    private Hashtable<String, Level> m_LoggerLevel = new Hashtable<String, Level>();
-    private Hashtable<String, Logger> m_LoggerObject = new Hashtable<String, Logger>();
-    private Hashtable<String, String> m_FileID2Bind = new Hashtable<String, String>();
+    private Hashtable<String, Level> m_LoggerLevel = new Hashtable<>();
+    private Hashtable<String, Logger> m_LoggerObject = new Hashtable<>();
+    private Hashtable<String, String> m_FileID2Bind = new Hashtable<>();
     private Hashtable<String, FileLogsObject> m_FileLogs2Object =
             new Hashtable<String, FileLogsObject>();
 
@@ -73,31 +76,30 @@ public class BaseLogger {
 
     private void SetAppender(Node logNode, String level, Node fileLogs) throws Exception
     {
-        String appender = logNode.selectSingleNode("appender").getText();
-        Appender appender1 = null;
-        char bApp = appender.toLowerCase().charAt(0);
-        switch (bApp)
+        String strAppender = logNode.selectSingleNode("appender").getText();
+        Appender appender = null;
+        switch (LoggerType.valueOf(strAppender.toUpperCase()))
         {
-            case 'c':
+            case CONSOLE:
             default: {
-                    m_loggerType = LOGGER_TYPE.LOGGER_CONSOLE;
-                    appender1 = new ConsoleAppender(new PatternLayout("%d{yyyy-MM-dd HH:mm:ss,SSS} %m%n"));
-                    appender1.setName(this.getClass().toString());
-                    logger.addAppender(appender1);
+                    m_loggerType = LoggerType.CONSOLE;
+                    appender = new ConsoleAppender(new PatternLayout("%d{yyyy-MM-dd HH:mm:ss,SSS} %m%n"));
+                    appender.setName(this.getClass().toString());
+                    logger.addAppender(appender);
                 }
                 break;
-            case 's': {
-                    m_loggerType = LOGGER_TYPE.LOGGER_SOCKET;
+            case SOCKET: {
+                    m_loggerType = LoggerType.SOCKET;
                     String[] address = logNode.selectSingleNode("address").getText().split(":");
                     String host = address[0];
                     int port = Integer.valueOf(address[1]);
-                    appender1 = new SocketAppender(host, port);
-                    appender1.setName(this.getClass().toString());
-                    logger.addAppender(appender1);
+                    appender = new SocketAppender(host, port);
+                    appender.setName(this.getClass().toString());
+                    logger.addAppender(appender);
                 }
                 break;
-            case 'f': {
-                    m_loggerType = LOGGER_TYPE.LOGGER_FILE;
+            case FILE: {
+                    m_loggerType = LoggerType.FILE;
                     InitFileLogger(logNode, level, fileLogs);
                 }
                 break;
@@ -109,7 +111,7 @@ public class BaseLogger {
         DailyRollingFileAppender appender = new DailyRollingFileAppender();
         FileLogsObject fileBindObject = m_FileLogs2Object.get(m_FileID2Bind.get(level));
         if (fileBindObject == null) {
-            throw new Exception("The log instance is not defineed  :" + level);
+            throw new Exception("The log instance is not defined  :" + level);
         }
         Logger log = Logger.getLogger(this.getClass() + "." + level);
         log.setLevel(m_LoggerLevel.get(level.toLowerCase()));
@@ -129,28 +131,28 @@ public class BaseLogger {
 
         InitFileBinds(fileNode, fileLogs);
         Layout layout = new PatternLayout("%d{yyyy-MM-dd HH:mm:ss,SSS} %m%n");
-        String filePath = ResourceManager.GetSysDataroot() + "log" + File.separator;
+        String filePath = ResourceManager.getUserDirectory() + "log" + File.separator;
         String datePattern = "'_'yyyy-MM-dd";
-        switch (level.toLowerCase().charAt(0))
+        switch (LoggerLevel.valueOf(level.toUpperCase()))
         {
-            case 'd': {
+            case DEBUG: {
                 Logger log = CreateLoggerByLevel("debug", layout, filePath, datePattern);
                 m_LoggerObject.put("debug", log);
             }
-            case 'i' : {
+            case INFO: {
                 Logger log = CreateLoggerByLevel("info", layout, filePath, datePattern);
                 m_LoggerObject.put("info", log);
             }
-            case 'w': {
+            case WARN: {
                 Logger log = CreateLoggerByLevel("warn", layout, filePath, datePattern);
                 m_LoggerObject.put("warn", log);
             }
-            case 'e': {
+            case ERROR: {
                 Logger log = CreateLoggerByLevel("error", layout, filePath, datePattern);
                 m_LoggerObject.put("error", log);
             }
 
-            case 'f': {
+            case FATAL: {
                 Logger log = CreateLoggerByLevel("fatal", layout, filePath, datePattern);
                 m_LoggerObject.put("fatal", log);
                 break;
@@ -206,7 +208,7 @@ public class BaseLogger {
     }
 
     protected void fatal(String text) throws Exception {
-        if (m_loggerType == LOGGER_TYPE.LOGGER_FILE){
+        if (m_loggerType == LoggerType.FILE){
             m_LoggerObject.get("fatal").fatal(text);
         }else {
             logger.fatal(text);
@@ -214,7 +216,7 @@ public class BaseLogger {
     }
 
     protected void error(String text) throws Exception {
-        if (m_loggerType.equals(LOGGER_TYPE.LOGGER_FILE)){
+        if (m_loggerType.equals(LoggerType.FILE)){
             m_LoggerObject.get("error").error(text);
         }else {
             logger.error(text);
@@ -222,7 +224,7 @@ public class BaseLogger {
     }
 
     protected void warn(String text) throws Exception {
-        if (m_loggerType.equals(LOGGER_TYPE.LOGGER_FILE)) {
+        if (m_loggerType.equals(LoggerType.FILE)) {
             m_LoggerObject.get("warn").warn(text);
         }else {
             logger.warn(text);
@@ -230,7 +232,7 @@ public class BaseLogger {
     }
 
     protected void info(String text) throws Exception {
-        if (m_loggerType.equals(LOGGER_TYPE.LOGGER_FILE)) {
+        if (m_loggerType.equals(LoggerType.FILE)) {
             m_LoggerObject.get("info").info(text);
         }else {
             logger.info(text);
@@ -238,7 +240,7 @@ public class BaseLogger {
     }
 
     protected void debug(String text) throws Exception {
-        if (m_loggerType.equals(LOGGER_TYPE.LOGGER_FILE)) {
+        if (m_loggerType.equals(LoggerType.FILE)) {
             m_LoggerObject.get("debug").debug(text);
         }else {
             logger.debug(text);

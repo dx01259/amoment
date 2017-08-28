@@ -3,16 +3,16 @@ package com.amoment.logging.Logger;
 /**
  * Created by xudeng on 2017/6/8.
  */
-public class SystemLoggner extends BaseLogger{
+public class SystemLogger extends BaseLogger{
 
-    private static SystemLoggner m_instance = new SystemLoggner();
+    private static SystemLogger instance = new SystemLogger();
 
-    public static SystemLoggner Instance()
+    public static SystemLogger Instance()
     {
-        return m_instance;
+        return instance;
     }
 
-    private SystemLoggner(){}
+    private SystemLogger(){}
 
     public void fatal(String skdf, String text) {
         try {

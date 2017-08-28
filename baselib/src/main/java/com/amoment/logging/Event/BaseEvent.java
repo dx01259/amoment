@@ -1,4 +1,4 @@
-package com.derivative.Logging.Event;
+package com.amoment.logging.Event;
 
 
 import com.google.gson.JsonObject;

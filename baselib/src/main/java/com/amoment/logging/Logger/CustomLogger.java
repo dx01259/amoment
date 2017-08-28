@@ -1,6 +1,4 @@
-package com.derivative.Logging.Logger;
-
-import org.dom4j.Node;
+package com.amoment.logging.Logger;
 
 /**
  * Created by xudeng on 2017/6/8.
@@ -9,7 +7,7 @@ public class CustomLogger extends BaseLogger{
 
     private CustomLogger(){}
 
-    public static CustomLogger m_instance = new CustomLogger();
+    private static CustomLogger instance = new CustomLogger();
 
-    public static CustomLogger Instance() { return m_instance; }
+    public static CustomLogger Instance() { return instance; }
 }

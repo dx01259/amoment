@@ -1,31 +1,31 @@
-package com.derivative.Logging.Service;
+package com.amoment.logging.Service;
 
-import com.derivative.Logging.Logger.CustomLogger;
-import com.derivative.Logging.Logger.SystemLoggner;
-import com.derivative.Logging.Logger.UserLogger;
-import com.derivative.base.core.ResourceManager;
-import com.derivative.base.util.UtilXml;
+import com.amoment.logging.Logger.CustomLogger;
+import com.amoment.logging.Logger.SystemLogger;
+import com.amoment.logging.Logger.UserLogger;
+import com.amoment.util.ResourceManager;
+import com.amoment.util.UtilXml;
 import org.dom4j.Node;
 
 /**
  * Created by xudeng on 2017/6/8.
  */
 public class LogManager {
-    private static boolean m_serviceReady = false;//服务器启动标示
+    private static boolean serviceReady = false;//服务器启动标示
 
     private static final String Config_File_Name = "log-config.xml";
 
-    private static SystemLoggner m_SystemLogger = SystemLoggner.Instance();
-    private static UserLogger m_UserLogger = UserLogger.Instance();
+    private static SystemLogger systemLogger = SystemLogger.Instance();
+    private static UserLogger userLogger = UserLogger.Instance();
 
-    private static CustomLogger m_CustomLogger = CustomLogger.Instance();
+    private static CustomLogger customLogger = CustomLogger.Instance();
 
     public static void Start() throws Exception
     {
         try
         {
             Init();
-            m_serviceReady = true;
+            serviceReady = true;
         }catch (Exception e)
         {
             throw e;
@@ -36,7 +36,7 @@ public class LogManager {
     {
         try
         {
-            String logFilePath = ResourceManager.GetSysDataroot() + Config_File_Name;
+            String logFilePath = ResourceManager.getUserDirectory() + Config_File_Name;
             UtilXml xml = new UtilXml(logFilePath);
             //初始化日志对象
             InitLoggers(xml);
@@ -51,28 +51,28 @@ public class LogManager {
     {
         try {
             //初始化系统日志
-            Node syslogger = xmlFile.getElement("//logging/loggers/system-logger");
+            Node sysLogger = xmlFile.getElement("//logging/loggers/system-logger");
             Node fileLogs = xmlFile.getElement("//logging/file-logs");
-            m_SystemLogger.Init(syslogger, fileLogs);
+            systemLogger.Init(sysLogger, fileLogs);
             //初始化用户日志
-            Node userlogger = xmlFile.getElement("//logging/loggers/user-logger");
-            m_UserLogger.Init(userlogger, fileLogs);
+            Node userNode = xmlFile.getElement("//logging/loggers/user-logger");
+            userLogger.Init(userNode, fileLogs);
             //初始化自定义日志
-            Node customlogger = xmlFile.getElement("//logging/loggers/custom-logger");
-            m_CustomLogger.Init(customlogger, fileLogs);
+            Node customNode = xmlFile.getElement("//logging/loggers/custom-logger");
+            customLogger.Init(customNode, fileLogs);
         }catch (Exception e){
             throw e;
         }
 
     }
 
-    public static SystemLoggner getSysLogger() {
-        return m_SystemLogger;
+    public static SystemLogger getSysLogger() {
+        return systemLogger;
     }
     public static UserLogger getUserLogger() {
-        return m_UserLogger;
+        return userLogger;
     }
     public static CustomLogger getCustomLogger() {
-        return m_CustomLogger;
+        return customLogger;
     }
 }

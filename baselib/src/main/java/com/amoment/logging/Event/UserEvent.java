@@ -1,7 +1,6 @@
-package com.derivative.Logging.Event;
+package com.amoment.logging.Event;
 
 import com.google.gson.*;
-import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
 
