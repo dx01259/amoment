@@ -1,4 +1,4 @@
-package com.amoment.netty;
+package com.amoment.netty.core;
 
 import io.netty.channel.ChannelHandlerContext;
 

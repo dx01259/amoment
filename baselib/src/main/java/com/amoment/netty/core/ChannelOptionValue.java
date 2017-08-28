@@ -1,4 +1,4 @@
 package com.amoment.netty.core;
 
-public class SocketChannelOption {
+public class ChannelOptionValue {
 }

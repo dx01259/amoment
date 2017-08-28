@@ -1,49 +1,57 @@
-package com.amoment.netty;
+package com.amoment.netty.core;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
-import java.io.IOException;
 import java.net.InetSocketAddress;
 
 
 /**
  * Created by xudeng on 2017/5/19.
  */
-public abstract class SocketService implements SocketHandler {
+public abstract class SocketService {
 
-    private ServerBootstrap m_serverBootstrap = new ServerBootstrap();
-    private EventLoopGroup m_bossGroup= new NioEventLoopGroup();
-    private EventLoopGroup m_workGroup = new NioEventLoopGroup();
-    private ChannelFuture m_ChannelFuture = null;
+    private InetSocketAddress socketAddress = null;
+    private ChannelHandler channelHandler = null;
+    private ChannelFuture channelFuture = null;
+    private ServerBootstrap serverBootstrap = new ServerBootstrap();
+    private EventLoopGroup bossGroup= new NioEventLoopGroup();
+    private EventLoopGroup workGroup = new NioEventLoopGroup();
 
-    public SocketService(final InetSocketAddress localAddress, ChannelHandler handler) throws Exception {
+    public SocketService(final InetSocketAddress socketAddress, ChannelHandler handler) {
+        channelHandler = handler;
+        this.socketAddress = socketAddress;
+    }
 
+    public SocketService(final int iPort, ChannelHandler handler) {
+
+        this(new InetSocketAddress(iPort), handler);
+    }
+
+    public void start() throws Exception {
         try {
-            m_serverBootstrap.group(m_bossGroup, m_workGroup).channel(NioServerSocketChannel.class)
-                    .childHandler(handler)
+            serverBootstrap.group(bossGroup, workGroup).channel(NioServerSocketChannel.class)
+                    .childHandler(channelHandler)
                     .option(ChannelOption.TCP_NODELAY, true);
 
-            m_ChannelFuture = m_serverBootstrap.bind(localAddress);
-            m_ChannelFuture.addListener(new ChannelFutureListener() {
+            channelFuture = serverBootstrap.bind(socketAddress).sync();
+            channelFuture.addListener(new ChannelFutureListener() {
                 public void operationComplete(ChannelFuture future) throws Exception {
                     if (!future.isSuccess()) {
-                        throw new Exception(String.format("Bind the port of %d is failed.", localAddress.getPort()));
+                        throw new Exception(String.format("Bind the port of %d is failed.", socketAddress.getPort()));
                     }
                 }
             });
         } catch (Exception e ) {
-            if (m_ChannelFuture != null) {
-                m_ChannelFuture.channel().close();
+            throw e;
+        } finally {
+            if (channelFuture != null) {
+                channelFuture.channel().closeFuture().sync();
             }
-            throw new Exception(e.getMessage());
+            bossGroup.shutdownGracefully().sync();
+            workGroup.shutdownGracefully().sync();
         }
-    }
-
-    public SocketService(final int iPort, ChannelHandler handler) throws Exception {
-
-        this(new InetSocketAddress(iPort), handler);
     }
 }

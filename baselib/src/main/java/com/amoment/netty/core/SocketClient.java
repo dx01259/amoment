@@ -1,45 +1,53 @@
-package com.amoment.netty;
+package com.amoment.netty.core;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-import java.io.IOException;
 import java.net.InetSocketAddress;
 
 /**
  * Created by xudeng on 2017/5/19.
  */
-public abstract class SocketClient implements SocketHandler {
+public abstract class SocketClient {
 
-    private Bootstrap m_Bootstrap = new Bootstrap();
-    private EventLoopGroup m_EventLoopGroup = new NioEventLoopGroup();
-    private ChannelFuture m_ChannelFuture = null;
+    private InetSocketAddress socketAddress = null;
+    private ChannelHandler channelHandler = null;
+    private Bootstrap bootstrap = new Bootstrap();
+    private EventLoopGroup loopGroup = new NioEventLoopGroup();
+    private ChannelFuture channelFuture = null;
 
-    public SocketClient(final InetSocketAddress address, ChannelHandler handler) throws Exception {
+    public SocketClient(final InetSocketAddress address, ChannelHandler handler) {
 
+        socketAddress = address;
+        channelHandler = handler;
+    }
+
+    public SocketClient(final String hostname, final int iPort, ChannelHandler handler) {
+        this(new InetSocketAddress(hostname, iPort), handler);
+    }
+
+    public void start() throws Exception {
         try {
-            m_Bootstrap.group(m_EventLoopGroup).channel(NioSocketChannel.class).handler(handler);
+            bootstrap.group(loopGroup).channel(NioSocketChannel.class).handler(channelHandler);
 
-            m_ChannelFuture = m_Bootstrap.connect(address);
-            m_ChannelFuture.addListener(new ChannelFutureListener() {
+            channelFuture = bootstrap.connect(socketAddress).sync();
+            channelFuture.addListener(new ChannelFutureListener() {
                 public void operationComplete(ChannelFuture future) throws Exception {
                     if (!future.isSuccess()){
                         throw new Exception(String.format("connect to server by ip of %s and " +
-                                "port of %d is failed", address.getHostName(), address.getPort()));
+                                "port of %d is failed", socketAddress.getHostName(), socketAddress.getPort()));
                     }
                 }
             });
         } catch (Exception e){
-            if (m_ChannelFuture != null) {
-                m_ChannelFuture.channel().close();
+            throw e;
+        } finally {
+            if (channelFuture != null) {
+                channelFuture.channel().close();
             }
-            throw new Exception(e.getMessage());
+            loopGroup.shutdownGracefully().sync();
         }
-    }
-
-    public SocketClient(final String hostname, final int iPort, ChannelHandler handler) throws Exception {
-        this(new InetSocketAddress(hostname, iPort), handler);
     }
 }
