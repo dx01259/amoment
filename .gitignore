@@ -1,5 +1,5 @@
 
 .idea
-database/.DS_Store
-database/src/main/java/com/.DS_Store
-database/src/main/java/com/amoment/.DS_Store
+*.DS_Store
+*.class
+
