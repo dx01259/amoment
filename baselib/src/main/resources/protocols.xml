@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<protocols>
+    <proto>
+        <protobufs id="00">
+            <encoding>utf-8</encoding>
+            <protobuf>
+                <id>0001</id>
+                <name>ProtoBufPackage</name>
+                <impl>com.derivative</impl>
+            </protobuf>
+        </protobufs>
+    </proto>
+    <proto>
+        <jsons id="01">
+            <encoding>utf-8</encoding>
+            <json>
+                <id>0101</id>
+                <name>ProtoBufPackage</name>
+                <impl>com.derivative</impl>
+            </json>
+        </jsons>
+    </proto>
+</protocols>

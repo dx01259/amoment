@@ -1,0 +1,10 @@
+syntax="proto3";
+
+option java_package = "com.derivative.base.protocol";
+option java_outer_classname="ProtoBuffMsgProto";
+
+message ProtoBuffMsg{
+    int32 id = 1;
+    string command = 2;
+    string data = 3;
+}
