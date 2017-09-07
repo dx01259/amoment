@@ -33,21 +33,29 @@ public abstract class SocketClient {
             bootstrap.group(loopGroup).channel(NioSocketChannel.class).handler(channelHandler);
 
             channelFuture = bootstrap.connect(socketAddress).sync();
-            channelFuture.addListener(new ChannelFutureListener() {
-                public void operationComplete(ChannelFuture future) throws Exception {
-                    if (!future.isSuccess()){
-                        throw new Exception(String.format("connect to server by ip of %s and " +
-                                "port of %d is failed", socketAddress.getHostName(), socketAddress.getPort()));
-                    }
+            channelFuture.addListener((ChannelFutureListener) future -> {
+                if (!future.isSuccess()){
+                    throw new Exception(String.format("connect to server by ip of %s and " +
+                            "port of %d is failed", socketAddress.getHostName(), socketAddress.getPort()));
                 }
             });
         } catch (Exception e){
             throw e;
         } finally {
-            if (channelFuture != null) {
-                channelFuture.channel().close();
-            }
-            loopGroup.shutdownGracefully().sync();
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                try {
+                    SocketClient.this.destroy();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }));
         }
+    }
+
+    public void destroy() throws Exception {
+        if (channelFuture != null) {
+            channelFuture.channel().closeFuture().sync();
+        }
+        loopGroup.shutdownGracefully().sync();
     }
 }

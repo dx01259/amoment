@@ -37,21 +37,29 @@ public abstract class SocketService {
                     .option(ChannelOption.TCP_NODELAY, true);
 
             channelFuture = serverBootstrap.bind(socketAddress).sync();
-            channelFuture.addListener(new ChannelFutureListener() {
-                public void operationComplete(ChannelFuture future) throws Exception {
-                    if (!future.isSuccess()) {
-                        throw new Exception(String.format("Bind the port of %d is failed.", socketAddress.getPort()));
-                    }
+            channelFuture.addListener((ChannelFutureListener) future -> {
+                if (!future.isSuccess()) {
+                    throw new Exception(String.format("Bind the port of %d is failed.", socketAddress.getPort()));
                 }
             });
         } catch (Exception e ) {
             throw e;
         } finally {
-            if (channelFuture != null) {
-                channelFuture.channel().closeFuture().sync();
-            }
-            bossGroup.shutdownGracefully().sync();
-            workGroup.shutdownGracefully().sync();
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                try {
+                    SocketService.this.destroy();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }));
         }
+    }
+
+    public void destroy() throws Exception {
+        if (channelFuture != null) {
+            channelFuture.channel().closeFuture().sync();
+        }
+        bossGroup.shutdownGracefully().sync();
+        workGroup.shutdownGracefully().sync();
     }
 }
