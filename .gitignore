@@ -3,3 +3,11 @@
 *.DS_Store
 *.class
 
+baselib/target
+database/target
+memcache/target
+message/target
+push/target
+ui/target
+user/target
+

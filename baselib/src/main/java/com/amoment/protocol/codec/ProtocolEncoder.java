@@ -1,4 +1,5 @@
 package com.amoment.protocol.codec;
 
-public class ProtocolEncoder {
+public interface ProtocolEncoder<T> {
+    byte[] toBytes(Integer type, T data);
 }

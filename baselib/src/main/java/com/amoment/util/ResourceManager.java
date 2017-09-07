@@ -21,7 +21,7 @@ public class ResourceManager {
         return userDir;
     }
 
-    public InputStream getClassDirectoryFile(Class pathClass, String fileDirectory) {
-        return pathClass.getResourceAsStream(fileDirectory);
+    public InputStream getInputStreamDirectoryFile(String fileDirectory) {
+        return ResourceManager.class.getResourceAsStream(fileDirectory);
     }
 }
