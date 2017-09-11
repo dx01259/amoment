@@ -1,5 +1,7 @@
 package com.amoment.protocol.codec;
 
-public interface ProtocolEncoder<T> {
+import com.amoment.netty.core.SocketOutbound;
+
+public interface ProtocolEncoder<T> extends SocketOutbound {
     byte[] toBytes(Integer type, T data);
 }

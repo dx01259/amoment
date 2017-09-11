@@ -1,12 +1,10 @@
 package com.amoment.netty.core;
 
+import com.amoment.netty.ServiceChannelHandler;
 import com.amoment.protocol.core.ProtocolFactory;
 import com.amoment.protocol.codec.ProtocolDecoder;
 import io.netty.buffer.*;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.*;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
@@ -54,14 +52,6 @@ public class SocketServiceHandler extends ChannelInitializer<SocketChannel> {
             }
             ctx.fireChannelRead(out);
             byteBuf.release();
-        }
-    }
-
-    class ServiceChannelHandler extends SimpleChannelInboundHandler<Object> {
-
-        @Override
-        protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-
         }
     }
 

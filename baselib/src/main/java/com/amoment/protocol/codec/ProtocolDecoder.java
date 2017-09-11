@@ -1,5 +1,7 @@
 package com.amoment.protocol.codec;
 
-public interface ProtocolDecoder {
+import com.amoment.netty.core.SocketInbound;
+
+public interface ProtocolDecoder extends SocketInbound {
     <T> T parseObject(Integer type, byte[] data, int length);
 }
