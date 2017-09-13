@@ -1,6 +1,5 @@
 package com.amoment.netty.core;
 
-import com.amoment.netty.ServiceChannelHandler;
 import com.amoment.protocol.core.ProtocolFactory;
 import com.amoment.protocol.codec.ProtocolDecoder;
 import io.netty.buffer.*;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class SocketServiceHandler extends ChannelInitializer<SocketChannel> {
+public class SocketServiceHandler extends ChannelInitializer<SocketChannel> implements SocketHandler{
 
     private Queue<ChannelHandler> channelHandlers = new ConcurrentLinkedQueue<>();
 
@@ -60,19 +59,21 @@ public class SocketServiceHandler extends ChannelInitializer<SocketChannel> {
         if (channelHandlers.isEmpty()) {
             ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(PackageConfig.MAX_DATA_LENGTH, 0, PackageConfig.HEAD_LENGTH));
             ch.pipeline().addLast(new ServiceChannelDecoder());
-            ch.pipeline().addLast(new ServiceChannelHandler());
         } else {
             for (ChannelHandler handler : channelHandlers
                     ) {
                 ch.pipeline().addLast(handler);
             }
         }
+        ch.pipeline().addLast(new ServiceChannelHandler());
     }
 
+    @Override
     public void addChannelHandler(ChannelHandler handler) {
         channelHandlers.add(handler);
     }
 
+    @Override
     public void deleteChannelHandler(ChannelHandler handler) {
         channelHandlers.remove(handler);
     }

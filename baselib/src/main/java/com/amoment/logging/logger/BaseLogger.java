@@ -1,4 +1,4 @@
-package com.amoment.logging.Logger;
+package com.amoment.logging.logger;
 
 import com.amoment.util.BaseFunc;
 import com.amoment.util.ResourceManager;

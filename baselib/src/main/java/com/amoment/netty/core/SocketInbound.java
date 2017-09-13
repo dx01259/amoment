@@ -1,6 +1,5 @@
 package com.amoment.netty.core;
 
-import io.netty.channel.ChannelHandlerContext;
 
 import java.io.IOException;
 

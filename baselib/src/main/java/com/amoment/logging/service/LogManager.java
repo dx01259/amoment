@@ -1,8 +1,8 @@
-package com.amoment.logging.Service;
+package com.amoment.logging.service;
 
-import com.amoment.logging.Logger.CustomLogger;
-import com.amoment.logging.Logger.SystemLogger;
-import com.amoment.logging.Logger.UserLogger;
+import com.amoment.logging.logger.CustomLogger;
+import com.amoment.logging.logger.SystemLogger;
+import com.amoment.logging.logger.UserLogger;
 import com.amoment.util.ResourceManager;
 import com.amoment.util.UtilXml;
 import org.dom4j.Node;

@@ -1,4 +1,4 @@
-package com.amoment.logging.Event;
+package com.amoment.logging.event;
 
 import com.google.gson.*;
 

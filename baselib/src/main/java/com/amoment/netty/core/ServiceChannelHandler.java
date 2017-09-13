@@ -1,6 +1,5 @@
-package com.amoment.netty;
+package com.amoment.netty.core;
 
-import com.amoment.netty.core.SocketInbound;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.SimpleChannelInboundHandler;

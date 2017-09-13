@@ -1,4 +1,4 @@
-package com.amoment.logging.Logger;
+package com.amoment.logging.logger;
 
 /**
  * Created by xudeng on 2017/6/8.
