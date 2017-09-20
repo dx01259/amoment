@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<protocols>
-    <protocol>
-        <id>0001</id>
-        <name>ProtoBufPackage</name>
-        <encoding>utf-8</encoding>
-        <impl>com.derivative</impl>
-    </protocol>
-</protocols>
